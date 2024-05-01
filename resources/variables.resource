@@ -21,6 +21,7 @@ ${input_login}             email
 ${input_pass}              password
 
 ## Alerts Errors
+${alertName}               xpath=//div[contains(@role,'alert')]
 ${alertmail}               //p[contains(.,'O email é obrigatório')]
 ${validmail}               //p[contains(.,'Digite um email válido')]
 ${alertpass}               //p[contains(.,'A senha é obrigatória')]
@@ -29,6 +30,7 @@ ${alertFullNameRegister}   //p[contains(.,'O campo nome completo é obrigatório
 ${alertMailRegister}       //p[contains(.,'O campo email é obrigatório')]                     
 ${alertprofileRegister}    //p[contains(.,'O campo perfil de acesso é obrigatório')]
 ${alertCPFRegister}        //p[contains(.,'O campo CPF é obrigatório')]
+${alertCharSpec}           //div[@class='MuiAlert-message css-1xsto0d']
 
 
 ## Buttons and Elements

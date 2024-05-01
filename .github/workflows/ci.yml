@@ -1,0 +1,55 @@
+name: Robot Framework - E2E Academy
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: https://santosvini.github.io/front_academy/report.html
+
+    steps:
+       - run: echo "🚀 Clone repository on virtual machine 🚀"
+       - name: Checkout Repository
+         uses: actions/checkout@v4
+
+       - run: echo "🌱 Install Python v3.12 🌱"
+       - name: Set up Python
+         uses: actions/setup-python@v5
+         with:
+            python-version: "3.12"
+
+       - run: echo "➕ Install Dependencies of Project ➕"
+       - name: Install Python e Dependencies
+         run: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+        
+       - run: echo "🤖 Execute Tests end-2-end 🤖"
+       - name: Run Robot Framework tests
+         run: robot --outputdir end-to-end/ /tests
+
+       - run: echo "📝 Saving Report Tests 📝" 
+       - name: Upload results
+         uses: actions/upload-artifact@v4
+         with:
+            name: front-report
+            path: end-to-end/
+        
+       - run: echo "🧪 Setting Github Pages 🧪"
+       - name: Deploy to GitHub Pages
+         uses: actions/configure-pages@v5
+         if: always()
+      
+       - run: echo "🚀 Deploy Report Tests 🚀"
+       - name: Deploy Github Pages
+         id: deployment
+         uses: actions/deploy-pages@v4
+         if: always()

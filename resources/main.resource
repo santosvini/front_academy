@@ -6,6 +6,7 @@ Library    FakerLibrary     locale=pt_BR
 Library    Screenshot
 Library    SeleniumLibrary
 Library    String
+Library    ./strings_utils.py
 
 Resource    ${CURDIR}/variables.resource
 
@@ -21,7 +22,7 @@ Login Admin
   Input Text                        ${input_login}    ${login}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${pass}
+  Input Password                    ${input_pass}     ${pass}
   
   Wait Until Element Is Visible     ${btnEntrar}
   Click button                      ${btnEntrar}
@@ -32,7 +33,7 @@ Login User
   Log    ${email}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${passuser}
+  Input Password                    ${input_pass}     ${passuser}
   Log    ${passuser}
   
   Wait Until Element Is Visible     ${btnEntrar}
@@ -48,7 +49,7 @@ User Data
   Input Text                        ${input_login}    ${userlogin}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${passuser}
+  Input Password                    ${input_pass}     ${passuser}
 
   Wait Until Element Is Visible     ${btnEntrar}
   Click Button                      ${btnEntrar}
@@ -83,7 +84,7 @@ Login Admin - Email Incorreto
   Input Text                        ${input_login}    ${errorlogin}         
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${pass}
+  Input Password                    ${input_pass}     ${pass}
   
   Wait Until Element Is Visible     ${btnEntrar}
   Click button                      ${btnEntrar}
@@ -96,7 +97,7 @@ Login User - Email Incorreto
   Input Text                        ${input_login}    ${usererror}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${pass}
+  Input Password                    ${input_pass}     ${pass}
   
   Wait Until Element Is Visible     ${btnEntrar}
   Click button                      ${btnEntrar}
@@ -108,7 +109,7 @@ Login Admin - Senha Incorreta
   Input Text                        ${input_login}    ${login}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${errorpass}
+  Input Password                    ${input_pass}     ${errorpass}
 
   Wait Until Element Is Visible     ${btnEntrar}
   Click button                      ${btnEntrar}
@@ -121,7 +122,7 @@ Login User - Senha Incorreta
   Input Text                        ${input_login}    ${userlogin}
 
   Wait Until Element Is Visible     ${input_pass}
-  Input Text                        ${input_pass}     ${errorpass}
+  Input Password                    ${input_pass}     ${errorpass}
 
   Wait Until Element Is Visible     ${btnEntrar}
   Click button                      ${btnEntrar}
@@ -143,10 +144,14 @@ Cadastro de novo usuário
 
   Wait Until Element Is Visible    css=label[for="fullName"]
   ${name}                          FakerLibrary.FirstName
-  ${name}=        Remove string            ${name}        ´  `  ^  ~  ç  Sra  Srta  Sr  ${SPACE}
+  ${name}=        Remove String            ${name}    Sr.    Sra.    Srta.    ${SPACE}
+  ${name}=        Remover Acentos          ${name}
+
   ${lastname}                      FakerLibrary.LastName
-  ${lastname}=    Remove string            ${lastname}    ´  `  ^  ~  ç  Sra  Srta  Sr  ${SPACE}
-  Input Text                       ${fullName}    ${name} ${lastname}
+  ${lastname}=    Remove String            ${lastname}    ${SPACE}
+  ${lastname}=    Remover Acentos          ${lastname}
+
+  Input Text      ${fullName}    ${name} ${lastname}
 
   Wait Until Element Is Visible            css=label[for="mail"]
 
@@ -163,12 +168,13 @@ Cadastro de novo usuário
   Input Text                       ${cpf}    ${random_cpf}
 
   Wait Until Element Is Visible    css=label[for="password"]
-  Input Text                       ${password}    ${passuser}
+  Input Password                   ${password}    ${passuser}
 
   Wait Until Element Is Visible    css=label[for="confirmPassword"]
-  Input Text                       ${confirmPassword}    ${passuser}
+  Input Password                   ${confirmPassword}    ${passuser}
 
   Click Button    ${btnSave}
+  Capture page screenshot
 
 Cadastro - Campos Obrigatorios
   Wait Until Element Is Visible    ${novoCad}
@@ -190,23 +196,20 @@ Cadastro - Campos Obrigatorios
 
   Capture page screenshot
 
-Cadastro - Sem Nome Completo
+Cadastro - Campo Nome Vazio
   Wait Until Element Is Visible    ${novoCad}
   Click button                     ${novoCad}
   Wait Until Element Is Visible    ${formUser}
 
   Wait Until Element Is Visible    css=label[for="fullName"]
   ${name}                          FakerLibrary.FirstName
-  # ${name}=        Remove string            ${name}        ´  `  ^  ~  ç  Sra  Srta  Sr  ${SPACE}
   ${lastname}                      FakerLibrary.LastName
-  # ${lastname}=    Remove string            ${lastname}    ´  `  ^  ~  ç  Sra  Srta  Sr  ${SPACE}
-  Input Text                       ${fullName}    ${name}
+  Input Text                       ${fullName}    ${EMPTY}
 
-  Wait Until Element Is Visible            css=label[for="mail"]
+  Wait Until Element Is Visible    css=label[for="mail"]
 
   ${email}=    Convert to Lower Case    ${name}${lastname}
   ${email}=    Catenate    SEPARATOR=   ${email}@qacoders.com
-  Set test variable        ${email}
   Input Text                            ${mail}    ${email}
 
   Wait Until Element Is Visible    css=label[for="accessProfile"]
@@ -217,11 +220,132 @@ Cadastro - Sem Nome Completo
   Input Text                       ${cpf}    ${random_cpf}
 
   Wait Until Element Is Visible    css=label[for="password"]
-  Input Text                       ${password}    ${passuser}
+  Input Password                   ${password}    ${passuser}
 
   Wait Until Element Is Visible    css=label[for="confirmPassword"]
-  Input Text                       ${confirmPassword}    ${passuser}
+  Input Password                   ${confirmPassword}    ${passuser}
 
   Click Button    ${btnSave}
+
+  Element should be visible        ${alertFullNameRegister}
+  Capture element screenshot       ${alertFullNameRegister}
+
+Cadastro - Campo Nome Incompleto
+  Wait Until Element Is Visible    ${novoCad}
+  Click button                     ${novoCad}
+  Wait Until Element Is Visible    ${formUser}
+
+  Wait Until Element Is Visible    css=label[for="fullName"]
+
+  ${name}                          FakerLibrary.FirstName
+  ${name}=        Remove String            ${name}    ${SPACE}
+  ${name}=        Remover Acentos          ${name}
+
+  ${lastname}                      FakerLibrary.LastName
+  ${lastname}=    Remove String            ${lastname}    ${SPACE}
+  ${lastname}=    Remover Acentos          ${lastname}
+
+  Input Text      ${fullName}    ${name}
+
+  Wait Until Element Is Visible    css=label[for="mail"]
+
+  ${email}=    Convert to Lower Case    ${name}${lastname}
+  ${email}=    Catenate    SEPARATOR=   ${email}@qacoders.com
+  Input Text                            ${mail}    ${email}
+
+  Wait Until Element Is Visible    css=label[for="accessProfile"]
+  Input Text                       ${profile}    ADMIN
+
+  ${random_cpf}      Generate Random String    length=11    chars=[NUMBERS]
+  Wait Until Element Is Visible    css=label[for="cpf"]
+  Input Text                       ${cpf}    ${random_cpf}
+
+  Wait Until Element Is Visible    css=label[for="password"]
+  Input Password                   ${password}    ${passuser}
+
+  Wait Until Element Is Visible    css=label[for="confirmPassword"]
+  Input Password                   ${confirmPassword}    ${passuser}
+
+  Click Button    ${btnSave}
+
+  Wait Until Element Is Visible    ${alertName}
+  Capture element screenshot       ${alertName}
+
+Cadastro - Campo Nome Caracter Especial
+  Wait Until Element Is Visible    ${novoCad}
+  Click button                     ${novoCad}
+  Wait Until Element Is Visible    ${formUser}
+
+  Wait Until Element Is Visible    css=label[for="fullName"]
+  Input Text      ${fullName}      $ampaio Corr&@
+
+  Wait Until Element Is Visible         css=label[for="mail"]
+  ${email}=    Convert to Lower Case    SampaioCorrea
+  ${email}=    Catenate    SEPARATOR=   ${email}@qacoders.com
+  Input Text                            ${mail}    ${email}
+
+  Wait Until Element Is Visible    css=label[for="accessProfile"]
+  Input Text                       ${profile}    ADMIN
+
+  ${random_cpf}      Generate Random String    length=11    chars=[NUMBERS]
+  Wait Until Element Is Visible    css=label[for="cpf"]
+  Input Text                       ${cpf}    ${random_cpf}
+
+  Wait Until Element Is Visible    css=label[for="password"]
+  Input Password                   ${password}    ${passuser}
+
+  Wait Until Element Is Visible    css=label[for="confirmPassword"]
+  Input Password                   ${confirmPassword}    ${passuser}
+
+  Click Button    ${btnSave}
+
+  Wait until element is visible    ${alertCharSpec}
+  Capture element screenshot       ${alertCharSpec}  
+
+Cadastro - Campo Nome com Letras Minúsculas
+  Wait Until Element Is Visible    ${novoCad}
+  Click button                     ${novoCad}
+  Wait Until Element Is Visible    ${formUser}
+
+  Wait Until Element Is Visible    css=label[for="fullName"]
+  ${name}                          FakerLibrary.FirstName
+  ${name}=        Remove String            ${name}    ${SPACE}
+  ${name}=        Remover Acentos          ${name}
+  ${name}=        Convert to lower case    ${name}
+
+  ${lastname}                      FakerLibrary.LastName
+  ${lastname}=    Remove String            ${lastname}    ${SPACE}
+  ${lastname}=    Remover Acentos          ${lastname}
+  ${lastname}=    Convert to lower case    ${lastname}
+
+  ${nameComplete}=    Remove String   ${name} ${lastname}    ${SPACE}
+  Input Text          ${fullName}     ${nameComplete}
+
+  Wait Until Element Is Visible         css=label[for="mail"]
+  ${email}=    Convert to Lower Case    ${name}${lastname}
+  ${email}=    Catenate    SEPARATOR=           ${email}@qacoders.com
+  Remove String            ${email}   ${SPACE}
+  Input Text               ${mail}    ${email}
+
+  Wait Until Element Is Visible    css=label[for="accessProfile"]
+  Input Text                       ${profile}    ADMIN
+
+  ${random_cpf}      Generate Random String    length=11    chars=[NUMBERS]
+  Wait Until Element Is Visible    css=label[for="cpf"]
+  Input Text                       ${cpf}    ${random_cpf}
+
+  Wait Until Element Is Visible    css=label[for="password"]
+  Input Password                   ${password}    ${passuser}
+
+  Wait Until Element Is Visible    css=label[for="confirmPassword"]
+  Input Password                   ${confirmPassword}    ${passuser}
+
+  Click Button    ${btnSave}
+  
+  Wait until element is visible    ${alertCharSpec}
+  Capture element screenshot       ${alertCharSpec}
+
+
+
 Logout
   Click button    ${btnSair}

@@ -20,8 +20,25 @@ TC01 - Cadastrar usuário - Campos Obrigatorios
   Acessa a home do QaCoders Academy
   Cadastro - Campos Obrigatorios
 
-TC02 - Cadastrar usuário - Sem Nome Completo
+TC02 - Cadastrar usuário - Campo Nome Vazio
+  [Tags]    register    without_name
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Nome Vazio
+
+TC03 - Cadastrar usuário - Nome Incompleto
   [Tags]    register    name_incompleted
   User Data
   Acessa a home do QaCoders Academy
-  Cadastro - Sem Nome Completo
+  Cadastro - Campo Nome Incompleto
+TC04 - Cadastrar usuário - Nome com Caracter Especial
+  [Tags]    register    chars_specs
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Nome Caracter Especial
+
+TC05 - Cadastrar usuário - Nome com Letras Minúsculas
+  [Tags]    register    lower_case
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Nome com Letras Minúsculas
