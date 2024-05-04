@@ -34,7 +34,7 @@ jobs:
         
        - run: echo "🤖 Execute Tests end-2-end 🤖"
        - name: Run Robot Framework tests
-         run: robot --outputdir end-to-end/ /tests
+         run: robot --outputdir end-to-end/ tests/
 
        - run: echo "📝 Saving Report Tests 📝" 
        - name: Upload results
