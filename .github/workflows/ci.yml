@@ -1,7 +1,7 @@
 name: Robot Framework - E2E Academy
 
 on:
-  workflow_dispatch
+  push
 
 jobs:
   build:
