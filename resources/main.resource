@@ -12,7 +12,7 @@ Resource    ${CURDIR}/variables.resource
 
 *** Keywords ***
 Iniciar Sessão
-  Open browser            ${url}    ${chrome}
+  Open browser            ${url}    headlesschrome
   Set Window Size         1920      1080
 Encerrar Sessão
   Close Browser
