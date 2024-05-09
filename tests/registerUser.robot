@@ -42,3 +42,23 @@ TC05 - Cadastrar usuário - Nome com Letras Minúsculas
   User Data
   Acessa a home do QaCoders Academy
   Cadastro - Campo Nome com Letras Minúsculas
+TC06 - Cadastrar usuário - Nome com Números
+  [Tags]    register    number
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Nome com Números
+TC07 - Cadastrar usuário - Campo Email Vazio
+  [Tags]    register    without_mail
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Email Vazio
+TC07 - Cadastrar usuário - Campo Email Incompleto
+  [Tags]    register    incompleted_mail
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Email Incompleto
+TC07 - Cadastrar usuário - Campo Caracter Especial
+  [Tags]    register    chars_mail
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Email Caracter Especial
