@@ -12,8 +12,8 @@ Resource    ${CURDIR}/variables.resource
 
 *** Keywords ***
 Iniciar Sessão
-  Open browser            ${url}    ${headlesschrome}
-  Set Window Size         1920      1080
+  Open browser            ${url}    ${chrome}
+  Set Window Size         1366      768
 Encerrar Sessão
   Close Browser
 Login Admin
@@ -464,11 +464,86 @@ Cadastro - Campo Email Incompleto
   Wait Until Element Is Visible    ${alertMailValid}
   Capture element screenshot       ${alertMailValid}
 
-Cadastro - Campo Email Caracter Especial
+Cadastro - Campo Email Incorreto
   Wait Until Element Is Visible    ${novoCad}
   Click button                     ${novoCad}
   Wait Until Element Is Visible    ${formUser}
 
   Wait Until Element Is Visible    css=label[for="fullName"]
+  ${name}                          FakerLibrary.FirstName
+  ${name}=        Remove String            ${name}    Sr.    Sra.    Srta.    ${SPACE}
+  ${name}=        Remover Acentos          ${name}
+
+  ${lastname}                      FakerLibrary.LastName
+  ${lastname}=    Remove String            ${lastname}    ${SPACE}
+  ${lastname}=    Remover Acentos          ${lastname}
+
+  Input Text      ${fullName}    ${name} ${lastname}
+
+  Wait Until Element Is Visible            css=label[for="mail"]
+
+  ${email}=    Convert to Lower Case    ${name}${lastname}
+  ${email}=    Catenate    SEPARATOR=   ${email}@qacoders
+  Set test variable        ${email}
+  Input Text                            ${mail}    ${email}
+
+  Wait Until Element Is Visible    css=label[for="accessProfile"]
+  Input Text                       ${profile}    ADMIN
+
+  ${random_cpf}      Generate Random String    length=11    chars=[NUMBERS]
+  Wait Until Element Is Visible    css=label[for="cpf"]
+  Input Text                       ${cpf}    ${random_cpf}
+
+  Wait Until Element Is Visible    css=label[for="password"]
+  Input Password                   ${password}    ${passuser}
+
+  Wait Until Element Is Visible    css=label[for="confirmPassword"]
+  Input Password                   ${confirmPassword}    ${passuser}
+
+  Click Button    ${btnSave}
+
+  Wait Until Element Is Visible    ${mandmail}    
+  Capture element screenshot       ${mandmail}
+
+Cadastro - Campo Perfil Incorreto
+  Wait Until Element Is Visible    ${novoCad}
+  Click button                     ${novoCad}
+  Wait Until Element Is Visible    ${formUser}
+
+  Wait Until Element Is Visible    css=label[for="fullName"]
+  ${name}                          FakerLibrary.FirstName
+  ${name}=        Remove String            ${name}    Sr.    Sra.    Srta.    ${SPACE}
+  ${name}=        Remover Acentos          ${name}
+
+  ${lastname}                      FakerLibrary.LastName
+  ${lastname}=    Remove String            ${lastname}    ${SPACE}
+  ${lastname}=    Remover Acentos          ${lastname}
+
+  Input Text      ${fullName}    ${name} ${lastname}
+
+  Wait Until Element Is Visible            css=label[for="mail"]
+
+  ${email}=    Convert to Lower Case    ${name}${lastname}
+  ${email}=    Catenate    SEPARATOR=   ${email}@qacoders.com
+  Set test variable        ${email}
+  Input Text                            ${mail}    ${email}
+
+  Wait Until Element Is Visible    css=label[for="accessProfile"]
+  Input Text                       ${profile}    ADM
+
+  ${random_cpf}      Generate Random String    length=11    chars=[NUMBERS]
+  Wait Until Element Is Visible    css=label[for="cpf"]
+  Input Text                       ${cpf}    ${random_cpf}
+
+  Wait Until Element Is Visible    css=label[for="password"]
+  Input Password                   ${password}    ${passuser}
+
+  Wait Until Element Is Visible    css=label[for="confirmPassword"]
+  Input Password                   ${confirmPassword}    ${passuser}
+
+  Click Button    ${btnSave}
+  
+  Wait Until Element Is Visible    ${invalidprofile}
+  Capture element screenshot       ${invalidprofile}
 Logout
   Click button    ${btnSair}

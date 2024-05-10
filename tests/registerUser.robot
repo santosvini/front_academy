@@ -57,8 +57,14 @@ TC07 - Cadastrar usuário - Campo Email Incompleto
   User Data
   Acessa a home do QaCoders Academy
   Cadastro - Campo Email Incompleto
-TC07 - Cadastrar usuário - Campo Caracter Especial
-  [Tags]    register    chars_mail
+TC07 - Cadastrar usuário - Campo Email Incorreto
+  [Tags]    register    inc_mail
   User Data
   Acessa a home do QaCoders Academy
-  Cadastro - Campo Email Caracter Especial
+  Cadastro - Campo Email Incorreto
+
+TC08 - Cadastrar usuário - Campo Perfil de Acesso Incorreto
+  [Tags]    register    inc_profile
+  User Data
+  Acessa a home do QaCoders Academy
+  Cadastro - Campo Perfil Incorreto

@@ -26,17 +26,18 @@ ${input_pass}              password
 ${alertName}               //div[contains(@role,'alert')]
 ${invalidmail}             //p[contains(.,'Email inválido')]
 ${alertmail}               //p[contains(.,'O email é obrigatório')]
+${mandmail}                //div[contains(.,'O e-mail informado é inválido. Informe um e-mail no formato [nome@domínio.com].')]
 ${validmail}               //p[contains(.,'Digite um email válido')]
 ${alertpass}               //p[contains(.,'A senha é obrigatória')]
 ${validpass}               (//div[contains(.,'E')])[1]
 ${alertFullNameRegister}   //p[contains(.,'O campo nome completo é obrigatório')]
-${alertMailRegister}       //p[contains(.,'O campo email é obrigatório')]                     
+${alertMailRegister}       //p[contains(.,'O campo email é obrigatório')]
 ${alertprofileRegister}    //p[contains(.,'O campo perfil de acesso é obrigatório')]
 ${alertCPFRegister}        //p[contains(.,'O campo CPF é obrigatório')]
 ${alertCharSpec}           //div[@class='MuiAlert-message css-1xsto0d']
 ${alertNum}                //div[@class='MuiAlert-message css-1xsto0d']
 ${alertMailValid}          //div[@class='MuiAlert-message css-1xsto0d']
-
+${invalidprofile}          //div[contains(.,'O campo perfil de acesso deve ser preenchido de acordo com o seu cargo exemplo: ADMIN.')]
 
 ## Buttons and Elements
 ${btnEntrar}               login
